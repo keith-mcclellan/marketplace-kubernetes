@@ -31,6 +31,7 @@ helm upgrade "$STACK" "$CHART" \
   --namespace "$NAMESPACE" \
   --values "$values" 
 
+
 sleep 30
 
 for i in $(kubectl get csr | tail -n +2 | sed '1!G;h;$!d' | cut -d ' ' -f1 | grep cockroach); do kubectl certificate approve "$i"; sleep 10; done
