@@ -13,8 +13,8 @@ helm repo update > /dev/null
 ################################################################################
 STACK="cockroachdb"
 CHART="cockroachdb/cockroachdb"
-CHART_VERSION="5.0.0"
 NAMESPACE="cockroachdb"
+
 
 if [ -z "${MP_KUBERNETES}" ]; then
   # use local version of values.yml
@@ -30,7 +30,6 @@ helm upgrade "$STACK" "$CHART" \
   --create-namespace \
   --namespace "$NAMESPACE" \
   --values "$values" 
-
 
 sleep 30
 
