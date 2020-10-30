@@ -15,7 +15,6 @@ STACK="cockroachdb"
 CHART="cockroachdb/cockroachdb"
 NAMESPACE="cockroachdb"
 
-
 if [ -z "${MP_KUBERNETES}" ]; then
   # use local version of values.yml
   ROOT_DIR=$(git rev-parse --show-toplevel)
@@ -29,8 +28,9 @@ helm upgrade "$STACK" "$CHART" \
   --install \
   --create-namespace \
   --namespace "$NAMESPACE" \
-  --values "$values" 
+  --values "$values"
 
 sleep 30
+
 
 for i in $(kubectl get csr | tail -n +2 | sed '1!G;h;$!d' | cut -d ' ' -f1 | grep cockroach); do kubectl certificate approve "$i"; sleep 10; done
